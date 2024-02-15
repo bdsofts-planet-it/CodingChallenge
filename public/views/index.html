@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Node.js Express HTML Page</title>
+  </head>
+  <body>
+    <h1>Hello from Node.js and Express!</h1>
+    <p>This is a simple HTML page served by an Express server.</p>
+    <p>Coding Challenge of the Lead NodeJS Javascript Developer</p>
+    <ul>
+      <h1>API Link</h1>
+      <li>
+        <a target="_blank" href="http://localhost:3000"> <b> Home </b></a>
+      </li>
+      <li>
+        <a target="_blank" href="http://localhost:3000/api/numberofwords">
+          The number of words
+        </a>
+      </li>
+      <li>
+        <a target="_blank" href="http://localhost:3000/api/numberofcharacters">
+          The number of characters
+        </a>
+      </li>
+      <li>
+        <a target="_blank" href="http://localhost:3000/api/numberofsentences">
+          The number of sentences
+        </a>
+      </li>
+      <li>
+        <a target="_blank" href="http://localhost:3000/api/numberofparagraphs">
+          The number of paragraphs
+        </a>
+      </li>
+      <li>
+        <a target="_blank" href="http://localhost:3000/api/longestwords">
+          The longest words in paragraphs
+        </a>
+      </li>
+    </ul>
+    <br />
+    <ul>
+      <h1>Data Display</h1>
+      <ul id="data-list"></ul>
+
+      <script>
+        //const dataList = document.getElementById("data-list");
+        fetch("http://localhost:3000/api/all").then((response) => response.json()).then((data) => {
+            const dataList = document.getElementById('data-list');
+            const arr = Object.entries(data).map(([key, value]) => {
+                return {key, value}
+            }); 
+            console.log(arr); // Output: [1, 2, 3]
+            arr.forEach(item => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `${item.key} : ${item.value}`;
+                dataList.appendChild(listItem);
+            });            
+          })
+          .catch((error) => console.error("Error fetching data:", error));
+      </script>
+    </ul>
+  </body>
+</html>
